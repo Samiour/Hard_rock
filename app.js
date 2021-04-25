@@ -1,6 +1,13 @@
+document.getElementById('searchField').addEventListener("keypress",function(event){
+    if(event.key=='Enter'){
+      document.getElementById('searchButton').click();
+    }
+});
+
 const searchSongs =()=>{
     const searchText = document.getElementById('searchField').value;
     const url =`https://api.lyrics.ovh/suggest/${searchText}`
+    toggleSpinner();
     fetch(url)
     .then(res =>res.json())
     .then (data=>displaySongs(data.data))
@@ -31,6 +38,7 @@ const searchSongs =()=>{
             </div>
         
             `
+            toggleSpinner();
             songContainer.appendChild(songDiv);
         });
     }
@@ -49,6 +57,12 @@ const searchSongs =()=>{
   }
    const displayError=()=>{
     alert("Something went wrong");
+   }
+   const toggleSpinner=(show)=>{
+       const spinner =document.getElementById('loading-spinner');
+       
+           spinner.classList.toggle('d-none');
+       
    }
       
    
